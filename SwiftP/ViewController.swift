@@ -241,5 +241,6 @@ class ViewController: UIViewController {
 //        return a*b
 //    }
     
+    lazy var nameLable = UILabel()
 }
 
