@@ -181,9 +181,58 @@ class ViewController: UIViewController {
          //print(functest(a: 10, b: 10))
 
 //10-----闭包（oc的block）
+       
+//        let result = block3(3,9)
+//        print(result)
         
-        
+//        loadData { result in
+//            print(result)
+//        }
+          
+//        loadData(name: "Hunt") { result in
+//            print(result)
+//        }
     }
+    let block1 = { () in
+        print("无参数返回值")
+    }
+    
+    let block2 = {(a:Int, b:Int) in
+        print(a*b)
+    }
+    
+    let block3 = {(a:Int, b:Int)->Int in
+        return (a*b)
+    }
+    
+//    func loadData(finishedCallBack: @escaping (String) -> ()) {
+//           //1.在全局队列中做耗时操作
+//           DispatchQueue.global().async {
+//               //在全局队列中休眠
+//               Thread.sleep(forTimeInterval: 1)
+//               //2.在主队列中回调数据
+//               DispatchQueue.main.async {
+//                   //执行闭包
+//                   finishedCallBack("哈哈哈哈哈哈哈哈哈")
+//               }
+//           }
+//       }
+      
+    func loadData(name: String,finishedCallBack: @escaping (String) -> ()){
+        print("\(name)\n")
+          //1.在全局队列中做耗时操作
+
+             DispatchQueue.global().async {
+         //在全局队列中休眠
+                Thread.sleep(forTimeInterval: 1)
+         //2.在主队列中回调数据
+                 DispatchQueue.main.async {
+                     //执行闭包
+                   finishedCallBack("哈哈哈哈哈哈哈哈哈")
+                 }
+            }
+    }
+       
     
 //    func functest(width a:Int,height b:Int) ->Int{
 //        return a*b
