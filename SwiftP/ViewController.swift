@@ -402,6 +402,10 @@ class subClass: mainClass, tcpprotocol {
         self.no2 = no2
         super.init(no1:no1)
     }
+    
+    //便利构造函数必须调用当前类的构造函数完成初始化
+    //便利构造函数不能被子类重写或者是从子类中以super的方式被调用
+    
     // 因为遵循协议，需要加上"required"; 因为继承自父类，需要加上"override"
     required override convenience init(no1: Int)  {
         self.init(no1:no1, no2:0)
