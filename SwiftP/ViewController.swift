@@ -10,7 +10,10 @@ import Masonry
 import Alamofire
 
 class ViewController: UIViewController {
-
+    
+    //自定义类当属性
+    var testClass : TestClass = TestClass()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -192,7 +195,56 @@ class ViewController: UIViewController {
 //        loadData(name: "Hunt") { result in
 //            print(result)
 //        }
-    }
+        
+//        vari(5,4,3,2,1,2,3,4,5) //无限参数方法
+        
+//        let func1 = makeIncrementor(forIncrement: 10)
+//        print(func1())
+//        print(func1())
+//        print(func1())
+        
+//      var mark =  markStruct(mark1: 75, mark2: 60, mark3: 120, mark4: 120)
+//      print("政治：\(mark.mark1) 英语\(mark.mark2) 数学\(mark.mark3) 计算机基础\(mark.mark4) 总分:\(mark.mark1+mark.mark2+mark.mark3+mark.mark4)")
+//        var test = TestClass()
+//        test.countAdd()
+//        print(test.number)
+        
+//        self.testClass.countAdd()
+//        print(self.testClass.number)
+//
+//        self.testClass.countAddNumber(count: 5)
+//        print(self.testClass.number)
+//
+//        self.testClass.reset()
+//        print(self.testClass.number)
+        
+    //类方法
+//    print(TestClass.absoluteValue(count: -20))
+        
+//    let number1 = 99
+//    let division = subexample(decrementer: number1)
+//    print("计算\(number1)除以9==\(division[9])")
+  
+    //分类，扩展
+//        let addition = 3.add
+//        print("加法运算后的值：\(addition)")
+//
+//        let subtraction = 120.sub
+//        print("减法运算后的值：\(subtraction)")
+//
+//        let multiplication = 39.mul
+//        print("乘法运算后的值：\(multiplication)")
+//
+//        let division = 55.div
+//        print("除法运算后的值: \(division)")
+//
+//        let mix = 30.add + 34.sub
+//        print("混合运算结果：\(mix)")
+        
+//
+        
+}
+    
     let block1 = { () in
         print("无参数返回值")
     }
@@ -242,5 +294,116 @@ class ViewController: UIViewController {
 //    }
     
     lazy var nameLable = UILabel()
+    
+/// 无限参数的方法
+/// - Parameter members: 类似为动态数组
+    func vari<A>(_ members: A...){
+        for temp in members{
+            print("\(temp)\n")
+        }
+    }
+    
+    /// 返回一个 返回值为int类型的 方法
+    /// - Parameter amount: amount 入参
+    /// - Returns:  () -> Int   返回值为int的方法
+    func makeIncrementor(forIncrement amount: Int) -> () -> Int {
+        var runningTotal = 0
+        func incrementor() -> Int {
+        //var runningTotal = 0
+            print(amount,runningTotal)
+            runningTotal += amount
+            return runningTotal
+        }
+        return incrementor
+    }
+    
+    struct markStruct{
+        var mark1: Int
+        var mark2: Int
+        var mark3: Int
+        var mark4: Int
+        
+        init(mark1: Int, mark2: Int, mark3: Int, mark4: Int){
+            self.mark1 = mark1
+            self.mark2 = mark2
+            self.mark3 = mark3
+            self.mark4 = mark4
+        }
+    }
+
 }
 
+class TestClass {
+    var number: Int = 0 {
+        willSet(newTotal){
+//            print("willSet:\(newTotal)")
+        }
+        didSet{
+//            if number > oldValue {
+//                print("didSet:\(number - oldValue)")
+//            }
+        }
+    }
+    
+    class func absoluteValue(count:Int) -> Int{
+        if count < 0 {
+            return (-count)
+        }else{
+            return  count
+        }
+    }
+
+    func countAdd () {
+        number += 1
+        print(number)
+    }
+    
+    func countAddNumber (count:Int) {
+        number += count
+        print(number)
+    }
+    
+    func reset (){
+        number = 0;
+        print(number)
+    }
+}
+
+/// 下标脚本
+struct subexample {
+    let decrementer: Int
+    subscript(index: Int) -> Int {
+        return decrementer / index
+    }
+}
+
+extension Int {
+   var add: Int {return self + 100 }
+   var sub: Int { return self - 10 }
+   var mul: Int { return self * 10 }
+   var div: Int { return self / 5 }
+}
+
+
+protocol tcpprotocol {
+    init(no1: Int)
+}
+
+class mainClass {
+    var no1: Int // 局部变量
+    init(no1: Int) {
+        self.no1 = no1 // 初始化
+    }
+}
+
+class subClass: mainClass, tcpprotocol {
+    var no2: Int
+    init(no1: Int, no2 : Int) {
+        self.no2 = no2
+        super.init(no1:no1)
+    }
+    // 因为遵循协议，需要加上"required"; 因为继承自父类，需要加上"override"
+    required override convenience init(no1: Int)  {
+        self.init(no1:no1, no2:0)
+    }
+}
